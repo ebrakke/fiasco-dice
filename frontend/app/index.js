@@ -1,4 +1,4 @@
-import Button from './modules/button/button';
+import Boilerplate from './modules/boilerplate/boilerplate'
 
-const button = new Button('google.com');
-button.render('a');
+const boilerplate = new Boilerplate('default text');
+boilerplate.render('#app');
