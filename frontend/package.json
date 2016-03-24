@@ -4,12 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "./node_modules/.bin/concurrently \"npm run build-dev\" \"npm run dev-server\"",
+    "start": "./node_modules/.bin/concurrently \"npm run build-dev\" \"npm run dev-server\" \"npm run open\"",
     "dev-server": "./node_modules/.bin/webpack-dev-server --inline --colors --progress --display-error-details --display-cached --port 8080 --content-base dev",
     "build-dev": "./node_modules/.bin/webpack --watch --config webpack.config.js",
     "webpack": "./node_modules/.bin/webpack",
     "bower": "./node_modules/.bin/bower",
-    "clean-dev": "rm dev/*.js"
+    "clean-dev": "rm dev/*.js",
+    "open": "node build_scripts/open.js"
   },
   "author": "",
   "license": "ISC",
@@ -30,6 +31,7 @@
     "karma-mocha": "^0.2.2",
     "mocha": "^2.4.5",
     "node-sass": "^3.4.2",
+    "open": "0.0.5",
     "resolve-url-loader": "^1.4.3",
     "sass-loader": "^3.2.0",
     "style-loader": "^0.13.0",

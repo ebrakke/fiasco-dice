@@ -1,10 +1,9 @@
-import $ from 'jquery';
 import template from './boilerplate.html';
-import css from './boilerplate.scss';
+import './boilerplate.scss';
 import 'bootstrap-loader';
 import riot from 'riot';
 
-riot.tag('boilerplate', template, css, function(opts) {
+riot.tag('boilerplate', template, function(opts) {
 	var self = this;
 	self.displayText = '';
 
