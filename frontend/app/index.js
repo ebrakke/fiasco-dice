@@ -1,4 +1,4 @@
-import Boilerplate from './modules/boilerplate/boilerplate'
+import riot from 'riot';
+import './modules/boilerplate/boilerplate';
 
-const boilerplate = new Boilerplate('You haven\'t entered anything yet');
-boilerplate.render('#app');
+riot.mount('div#app', 'boilerplate');

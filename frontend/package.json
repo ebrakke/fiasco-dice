@@ -41,6 +41,7 @@
     "bootstrap": "^3.3.6",
     "bootstrap-sass": "^3.3.6",
     "jquery": "^2.2.2",
-    "mustache": "^2.2.1"
+    "mustache": "^2.2.1",
+    "riot": "^2.3.17"
   }
 }
