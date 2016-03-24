@@ -18,8 +18,20 @@ export default class Boilerplate {
 		$('#user-input').val('');
 	}
 
+	onKeyDown(event) {
+		$('.custom-class').text('User is typing...');
+	}
+
+	onKeyUp(event) {
+		setTimeout(function() {
+			$('.custom-class').text('');
+		}, 1000);
+	}
+
 	render(node) {
 		$(node).html(Mustache.render(template, {userInput: this.text}));
 		$('#submit').click(this.onSubmit.bind(this));
+		$('#user-input').on('keydown', this.onKeyDown.bind(this));
+		$('#user-input').on('keyup', this.onKeyUp.bind(this));
 	}
 }

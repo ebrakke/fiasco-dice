@@ -1,4 +1,6 @@
 var webpack = require('webpack');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+var CleanWebpackPlugin = require('clean-webpack-plugin');
 var path = require('path');
 
 module.exports = {
@@ -16,7 +18,13 @@ module.exports = {
 		new webpack.ProvidePlugin({
             $: "jquery",
             jQuery: "jquery"
-        })
+        }),
+		new HtmlWebpackPlugin({
+			template: './app/index.html'
+		}),
+		new CleanWebpackPlugin(['dev'], {
+			"verbose": true
+		})
 	],
 	module: {
 		preLoaders: [
