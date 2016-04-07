@@ -1,0 +1,216 @@
+swagger: "2.0"
+info:
+  version: 0.0.1
+  title: fiasco server
+paths:
+  /playsets:
+    get:
+      description: Returns a collection of all playsets in the DB
+      parameters:
+        - name: limit
+          in: query
+          description: A limit on the number of playsets returned
+          default: 10
+          required: false
+          type: integer
+          format: int32
+
+      responses:
+        200:
+          description: Returns the collection of playsets
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Playset"
+
+definitions:
+  Player:
+    type: object
+    description: A person playing in the game
+    properties:
+      playerId:
+        type: string
+        description: SHA256 hash to uniquely indentify a Player
+      alias:
+        type: string
+        description: A name to display for humans
+      dice:
+        type: array
+        description: The dice that the player currently hash
+        items:
+          $ref: '#/definitions/Die'
+      relationships:
+        type: array
+        description: A collection of relationships this player has with others
+        maxLength: 2
+        items:
+          $ref: '#/definitions/PlayerRelationship'
+      notes:
+        type: string
+        description: Any notes the player may decide to write down on the card
+
+  PlayerRelationship:
+    type: object
+    description: A description of a relationship to another player
+    properties:
+      player_id:
+        type: string
+        description: the id of the adjacent player
+      relationship:
+        $ref: '#/definitions/ChosenDetail'
+      object:
+        $ref: '#/definitions/ChosenDetail'
+      need:
+        $ref: '#/definitions/ChosenDetail'
+      location:
+        $ref: '#/definitions/ChosenDetail'
+
+  Playset:
+    type: object
+    required:
+      - id
+      - name
+      - relationships
+      - locations
+      - objects
+      - needs
+      - tilt
+      - end
+    properties:
+      id:
+        type: string
+        description: SHA256 hash to uniquely identify the Playset
+      name:
+        type: string
+        description: The name of the Playset
+      relationships:
+        type: array
+        minItems: 6
+        maxItems: 6
+        items:
+          $ref: "#/definitions/Relationship"
+      locations:
+        type: array
+        minItems: 6
+        maxItems: 6
+        items:
+          $ref: "#/definitions/Location"
+      objects:
+        type: array
+        minItems: 6
+        maxItems: 6
+        items:
+          $ref: "#/definitions/Object"
+      needs:
+        type: array
+        minItems: 6
+        maxItems: 6
+        items:
+          $ref: "#/definitions/Need"
+      tilt:
+        $ref: "#/definitions/Tilt"
+
+      end:
+        $ref: "#/definitions/End"
+
+  Relationship:
+    type: object
+    allOf:
+      - $ref: "#/definitions/Category"
+
+  Location:
+    type: object
+    allOf:
+      - $ref: "#/definitions/Category"
+
+  Object:
+    type: object
+    allOf:
+      - $ref: "#/definitions/Category"
+
+  Need:
+    type: object
+    allOf:
+      - $ref: "#/definitions/Category"
+
+  Tilt:
+    type: object
+    description: TODO
+    properties: {}
+
+  End:
+    type: object
+    description: TODO
+    properties: {}
+
+  Category:
+    type: object
+    description: This will be the type of thing you are defining (e.g relationship)
+    properties:
+      name:
+        type: string
+        description: The kind of category it is
+      details:
+        type: array
+        minLength: 6
+        maxLength: 6
+        items:
+          $ref: "#/definitions/Detail"
+
+  Detail:
+    type: object
+    description: The general way to describe a category
+    properties:
+      text:
+        type: string
+        description: The text associated with the detail
+      cost:
+        type: integer
+        format: int32
+        minimum: 1
+        maximum: 6
+        description: This is the cost related to the dice
+      defintions:
+        type: array
+        minLength: 6
+        maxLength: 6
+        items:
+          $ref: "#/definitions/Definition"
+
+  Definition:
+    type: object
+    description: This is the more specific part of the detail
+    properties:
+      text:
+        type: string
+        description: This is the text associated with the definition
+      cost:
+        type: integer
+        format: int32
+        minimum: 1
+        maximum: 6
+        description: the cost related to the dice
+
+  Die:
+    type: object
+    description: This is just a die with a number and a color
+    properties:
+      number:
+        type: integer
+        format: int32
+        minimum: 1
+        maximum: 6
+      color:
+        type: string
+        description: Eithe black or white
+
+  ChosenDetail:
+    type: object
+    description: Describes the chosen state of a detail for a person
+    properties:
+      general:
+        type: string
+        description: the general part of the detail
+      specific:
+        type: string
+        description: the blub that makes the detail more specific
