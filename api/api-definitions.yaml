@@ -22,15 +22,107 @@ paths:
             type: array
             items:
               $ref: "#/definitions/Playset"
+    post:
+      description: Allows the user to upload a gameset
+      parameters:
+        - name: playset
+          in: body
+          required: true
+          description: All of the info required for a playset
+          schema:
+            $ref: '#/definitions/Playset'
+      responses:
+        200:
+          description: Returns a success message to the user
+          schema:
+            description: A success message that the playset has been created
+            type: string
+
+  /playsets/{id}:
+    get:
+      description: Allows the user to get a specific playset
+      parameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+          description: the unique id of the playset
+      responses:
+        200:
+          description: This will return the playset object
+          schema:
+            $ref: '#/definitions/Playset'
+
+  /gamestate/{id}:
+    get:
+      description: Allows the user to get the gamestate of a session.
+      parameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+          description: the game state id
+      responses:
+        200:
+          description: This will return the gamestate object
+          schema:
+            $ref: '#/definitions/Gamestate'
+    post:
+      description: Allows a user to request joining a game
+      parameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+          description: the game state id
+      responses:
+        200:
+          description: This means the user has successfully joined the game.  Returned will the user unique ID and the gamestate.
+          schema:
+            type: object
+            properties:
+              userId:
+                type: string
+                description: The unique ID of the newly joined user
+              gamestate:
+                $ref: '#/definitions/Gamestate'
+
+
+
+
 
 definitions:
+  Gamestate:
+    type: object
+    description: Describes the exact state of a game
+    properties:
+      gameId:
+        type: string
+        description: SHA256 hash to uniquely identify the game
+      creator:
+        type: string
+        description: The id of the player who created the game
+      players:
+        type: array
+        description: The players that are currently in the game, including the creator
+        maxLength: 5
+        items:
+          $ref: '#/definitions/Player'
+      dice:
+        type: array
+        description: all of the dice that have been rolled for the game
+        items:
+          $ref: '#/definitions/Die'
+      playset:
+        $ref: '#/definitions/Playset'
+
   Player:
     type: object
     description: A person playing in the game
     properties:
       playerId:
         type: string
-        description: SHA256 hash to uniquely indentify a Player
+        description: SHA256 hash to uniquely identify a Player
       alias:
         type: string
         description: A name to display for humans
@@ -83,6 +175,12 @@ definitions:
       name:
         type: string
         description: The name of the Playset
+      scene:
+        type: string
+        description: A small blub setting the scene for the playset
+      coverArt:
+        type: string
+        description: A url pointing to where the cover art can be found
       relationships:
         type: array
         minItems: 6
@@ -109,7 +207,6 @@ definitions:
           $ref: "#/definitions/Need"
       tilt:
         $ref: "#/definitions/Tilt"
-
       end:
         $ref: "#/definitions/End"
 
