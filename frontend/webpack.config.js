@@ -1,58 +1,58 @@
-var webpack = require('webpack');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var CleanWebpackPlugin = require('clean-webpack-plugin');
-var path = require('path');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const NpmInstallPlugin = require('npm-install-webpack-plugin');
+const path = require('path');
+
+const PATHS = {
+	app: path.join(__dirname, 'app'),
+	build: path.join(__dirname, 'build')
+}
 
 module.exports = {
-	entry: './app',
+	entry: PATHS.app,
+	resolve: {
+		extensions: ['', '.js', '.jsx'],
+	},
 	output: {
-		path: 'dev',
+		path: PATHS.build,
 		filename: 'bundle.js'
 	},
+	devServer: {
+		contentBase: PATHS.build,
+		historyApiFallback: true,
+		hot: true,
+		inline: true,
+		progress: true,
+		stats: 'errors-only',
+		host: process.env.HOST || '0.0.0.0',
+		port: process.env.PORT || 8080
+	},
+	devtool: 'eval-source-map',
 	plugins: [
-		new webpack.optimize.CommonsChunkPlugin({
-			name: 'main',
-			children: true,
-			minChunks: 2
-		}),
-		new webpack.ProvidePlugin({
-            $: "jquery",
-            jQuery: "jquery"
-        }),
 		new HtmlWebpackPlugin({
 			template: './app/index.html'
 		}),
-		new CleanWebpackPlugin(['dev'], {
+		new CleanWebpackPlugin(['build'], {
 			"verbose": true
+		}),
+		new webpack.HotModuleReplacementPlugin(),
+		new NpmInstallPlugin({
+			save: true
 		})
 	],
 	module: {
-		preLoaders: [
-		],
 		loaders: [
 			{
-				test: /\.js/,
-				loader: 'babel-loader',
-				include: __dirname + '/app',
-				query:{presets: ['es2015']}
+				test: /\.css$/,
+				loaders: ['style', 'css'],
+				include: PATHS.app
 			},
 			{
-				test: /\.scss/,
-				exclude: 'node_modules',
-				loaders: ['style', 'css', 'sass']
-			},
-			{
-				test: /\.html/,
-				exclude: 'node_modules',
-				loader: 'html'
-			},
-			{test: /bootstrap\/js\//, loader: 'imports?jQuery=jquery' },
-            {test: /\.less$/, loader: 'style-loader!css-loader!less-loader'},
-            {test: /\.css$/, loader: 'style-loader!css-loader'},
-            {test: /\.woff(2)?(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/font-woff" },
-            {test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/octet-stream" },
-            {test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file" },
-            {test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=image/svg+xml" }
+				test: /\.jsx?$/,
+				loader: 'babel',
+				include: PATHS.app
+			}
 		]
 	}
 }

@@ -88,9 +88,6 @@ paths:
                 $ref: '#/definitions/Gamestate'
 
 
-
-
-
 definitions:
   Gamestate:
     type: object
