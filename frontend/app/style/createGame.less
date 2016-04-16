@@ -1,0 +1,29 @@
+@import 'constants';
+
+@input-font-size: 30px;
+@input-border-color: #000000;
+
+.create-game {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  input {
+    background-color: @fiasco-blue;
+    font-size: @input-font-size;
+    color: @fiasco-font-color-light;
+    padding: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    border: none;
+    border-bottom: solid 1px @input-border-color;
+  }
+
+  .create-game-button {
+    background-color: @fiasco-red;
+    font-size: @input-font-size;
+    text-align: center;
+    cursor: pointer;
+    padding: 10px;
+  }
+}

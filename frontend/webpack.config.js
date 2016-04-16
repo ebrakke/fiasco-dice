@@ -49,6 +49,14 @@ module.exports = {
 				include: PATHS.app
 			},
 			{
+				test: /\.less$/,
+				loaders: ['style', 'css', 'less']
+			},
+			{
+				test: /\.ttf$/,
+				loaders: ['file-loader']
+			},
+			{
 				test: /\.jsx?$/,
 				loader: 'babel',
 				include: PATHS.app
