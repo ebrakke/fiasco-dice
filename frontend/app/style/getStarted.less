@@ -1,15 +1,21 @@
 @import 'constants';
 
-@input-font-size: 30px;
+@font-size: 30px;
 @input-border-color: #000000;
 
-.create-game {
+.get-started {
   display: flex;
   justify-content: center;
   flex-direction: column;
+  font-size: @font-size;
+
+  p {
+    padding: 10px;
+  }
+
   input {
     background-color: @fiasco-blue;
-    font-size: @input-font-size;
+    font-size: @font-size;
     color: @fiasco-font-color-light;
     padding: 10px;
     margin-bottom: 10px;
@@ -17,13 +23,25 @@
     margin-right: 10px;
     border: none;
     border-bottom: solid 1px @input-border-color;
-  }
 
-  .create-game-button {
+      &:focus {
+        outline: none;
+      }
+    }
+
+  .button {
     background-color: @fiasco-red;
-    font-size: @input-font-size;
+    font-size: @font-size;
     text-align: center;
     cursor: pointer;
     padding: 10px;
+
+    &.disabled {
+      background-color: fade(@fiasco-red, 70%);
+      color: fade(black, 10%);
+      cursor: not-allowed;
+    }
+
   }
+
 }

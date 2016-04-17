@@ -1,6 +1,6 @@
 @import 'constants';
 
-@disclaimer-font-size: 30px;
+@disclaimer-font-size: 50px;
 
 .welcome {
   display: flex;
@@ -8,9 +8,19 @@
   flex-direction: column;
   background-color: @fiasco-blue;
   font-family: @fiasco-font;
+  margin: auto;
+
+  @media (min-width: 900px), handheld and (orientation: landscape) {
+    width: 40%;
+  }
+
+  @media(min-width: 700px) {
+    width: 60%;
+  }
 }
 
 .disclaimer {
-  text-align: center;
+  padding: 10px;
   font-size: @disclaimer-font-size;
+  margin-bottom: 15px;
 }
