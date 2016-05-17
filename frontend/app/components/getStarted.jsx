@@ -39,8 +39,8 @@ export default class GetStarted extends React.Component {
     return(
       <div className="get-started">
         <p>Enter a nickname to get started</p>
-        <input name="nickname" placeholder="Nickname" onKeyUp= { this.handleUsernameInput.bind(this) }/>
-        <input name="code" placeholder="Code" onKeyUp={ this.handleCodeInput.bind(this) }/>
+        <input name="nickname" placeholder="Nickname" onChange={ this.handleUsernameInput.bind(this) }/>
+        <input name="code" placeholder="Code" onChange={ this.handleCodeInput.bind(this) }/>
         <div className={ this.state.hasUsername ? 'button' : 'button disabled' } onClick={ this.onButtonClick.bind(this) }>{ this.state.join ? 'Join' : 'Create' }</div>
       </div>
     )
