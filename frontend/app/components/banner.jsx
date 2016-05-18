@@ -1,7 +1,7 @@
 import React from 'react';
 import '../style/banner.less';
 
-export default class Navbar extends React.Component {
+export default class Banner extends React.Component {
 
   render() {
     return (

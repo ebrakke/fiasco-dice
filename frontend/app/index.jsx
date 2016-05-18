@@ -1,19 +1,16 @@
-import WelcomeModal from './components/welcomeModal.jsx';
+import MainLayout from './components/mainLayout.jsx';
+import LandingPage from './components/landingPage.jsx';
 import CreateGame from './components/createGame.jsx';
-import Banner from './components/banner.jsx';
 import ReactDOM from 'react-dom';
 import {Router, Route, Link, browserHistory} from 'react-router';
 import React from 'react';
 import './style/main.less';
 
-ReactDOM.render (
-  <Banner />,
-  document.getElementById('banner')
-);
-
 ReactDOM.render((
   <Router history={ browserHistory }>
-    <Route path='/' component={WelcomeModal} />
-    <Route path='*' component={WelcomeModal}></Route>
+    <Route component={ MainLayout }>
+      <Route path='/' component={ LandingPage } />
+      <Route path='/create' component={ CreateGame } />
+    </Route>
   </Router>
 ), document.getElementById('app'));
