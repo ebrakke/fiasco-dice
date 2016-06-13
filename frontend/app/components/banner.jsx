@@ -1,13 +1,10 @@
 import React from 'react';
 import '../style/banner.less';
 
-export default class Banner extends React.Component {
+const Banner = () => (
+  <div className="banner">
+    <div>Fiasco</div>
+  </div>
+);
+export default Banner;
 
-  render() {
-    return (
-      <div className="banner">
-          <div>Fiasco</div>
-      </div>
-    );
-  }
-}

@@ -1,7 +1,6 @@
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const NpmInstallPlugin = require('npm-install-webpack-plugin');
 const path = require('path');
 
 const PATHS = {
@@ -24,11 +23,13 @@ module.exports = {
 		hot: true,
 		inline: true,
 		progress: true,
+		debug: true,
+		devtool: 'source-map',
 		stats: 'errors-only',
 		host: process.env.HOST || '0.0.0.0',
 		port: process.env.PORT || 8080
 	},
-	devtool: 'eval-source-map',
+	devtool: 'source-map',
 	plugins: [
 		new HtmlWebpackPlugin({
 			template: './app/index.html'
@@ -36,10 +37,7 @@ module.exports = {
 		new CleanWebpackPlugin(['build'], {
 			"verbose": true
 		}),
-		new webpack.HotModuleReplacementPlugin(),
-		new NpmInstallPlugin({
-			save: true
-		})
+		new webpack.HotModuleReplacementPlugin()
 	],
 	module: {
 		loaders: [

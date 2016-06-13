@@ -1,6 +1,6 @@
 import MainLayout from './components/mainLayout.jsx';
 import LandingPage from './components/landingPage.jsx';
-import CreateGame from './components/createGame.jsx';
+import ChoosePlaysetContainer from './containers/choosePlaysetContainer.jsx';
 import ReactDOM from 'react-dom';
 import {Router, Route, Link, browserHistory} from 'react-router';
 import React from 'react';
@@ -10,7 +10,7 @@ ReactDOM.render((
   <Router history={ browserHistory }>
     <Route component={ MainLayout }>
       <Route path='/' component={ LandingPage } />
-      <Route path='/create' component={ CreateGame } />
+      <Route path='/create' component={ ChoosePlaysetContainer } />
     </Route>
   </Router>
 ), document.getElementById('app'));
